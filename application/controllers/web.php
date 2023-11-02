@@ -3,10 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class web extends CI_controller
 {
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->load->helper('url');
+        $this->load->model('m_data');
     }
     
     public function index()
@@ -28,6 +29,17 @@ class web extends CI_controller
         $data['judul'] = "About";
         $this->load->view('v_header', $data);
         $this->load->view('v_about', $data);
+        $this->load->view('v_footer', $data);
+    }
+    public function user()
+    {
+        $data['user']=$this->m_data->ambil_data()->result();
+        $data = array(
+            'user' => $this->m_data->ambil_data()->result(),
+            'judul' => "daftar user"
+        );
+        $this->load->view('v_header',$data);
+        $this->load->view('v_user', $data);
         $this->load->view('v_footer', $data);
     }
 }
